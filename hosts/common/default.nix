@@ -4,39 +4,19 @@
   pkgs,
   ...
 }: { 
+  imports = [
+    ../../users/polina.nix
+    
+    ../../modules/packages/base.nix
+  ];
+
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
-
-  # Install firefox.
-  programs.firefox.enable = true;
-
-    # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    # terminal
-    kitty
-    tmux
-    nerd-fonts.jetbrains-mono
-
-    neovim
-    vscode
-
-    wget
-    btop
-    git
-    bat
-    nodejs_24
-  ];
-
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
-
+  
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-
-  # Enable networking
-  networking.networkmanager.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Rome";
@@ -57,9 +37,6 @@
   };
 
   # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
